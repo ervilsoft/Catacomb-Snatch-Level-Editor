@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CatacombSnatchLevelEditor" default="default" basedir=".">
+    <description>Builds, tests, and runs the project CatacombSnatchLevelEditor.</description>
+    <import file="nbproject/build-impl.xml"/>
+    
+    <target name="-post-jar">
+        <copy todir="${dist.dir}/art">
+            <fileset dir="${basedir}/res/art" />
+        </copy>
+        <copy todir="${dist.dir}/levels">
+            <fileset dir="${basedir}/res/levels" />
+        </copy>
+    </target>
+    
+</project>
