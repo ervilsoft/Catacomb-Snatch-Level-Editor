@@ -2,6 +2,7 @@ package com.ervilsoft.csleveleditor;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -11,11 +12,11 @@ public class Art {
     public static BufferedImage gui = load("/gui/menu.png", true);
     public static BufferedImage[][] buttons = cut("/gui/menu.png", 128, 24, 0, 47, true);
     
-    public static BufferedImage[][] floorTiles = cut("map/floortiles.png", 32, 32);
-    public static BufferedImage[][] wallTiles = cut("map/floortiles.png", 32, 56, 0, 104);
-    public static BufferedImage[][] treasureTiles = cut("map/treasure.png", 32, 56);
-    public static BufferedImage[][] railsTiles = cut("map/rails.png", 32, 38);
-    public static BufferedImage shadow = load("map/shadow.png");
+    public static BufferedImage[][] floorTiles = cut("art/map/floortiles.png", 32, 32);
+    public static BufferedImage[][] wallTiles = cut("art/map/floortiles.png", 32, 56, 0, 104);
+    public static BufferedImage[][] treasureTiles = cut("art/map/treasure.png", 32, 56);
+    public static BufferedImage[][] railsTiles = cut("art/map/rails.png", 32, 38);
+    public static BufferedImage shadow = load("art/map/shadow.png");
     
 
     public static BufferedImage load(String string) {
@@ -82,7 +83,7 @@ public class Art {
         if (isResource) {
             return ImageIO.read(LevelEditor.class.getResource(string));
         } else {
-            return ImageIO.read(ClassLoader.getSystemResource(string));
+            return ImageIO.read(new File(string));
         }
     }
 }

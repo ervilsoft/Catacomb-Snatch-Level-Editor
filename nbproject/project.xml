@@ -5,10 +5,9 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>CatacombSnatchLevelEditor</name>
             <source-roots>
-                <root id="src.dir"/>
-                <root id="src.res.dir" name="Resource Packages"/>
                 <root id="src.art.dir" name="Art"/>
-                <root id="src.levels.dir" name="Levels"/>
+                <root id="src.res.dir" name="Resource Packages"/>
+                <root id="src.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>

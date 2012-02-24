@@ -5,10 +5,10 @@
     
     <target name="-post-jar">
         <copy todir="${dist.dir}/art">
-            <fileset dir="${basedir}/res/art" />
+            <fileset dir="${basedir}/art" />
         </copy>
         <copy todir="${dist.dir}/levels">
-            <fileset dir="${basedir}/res/levels" />
+            <fileset dir="${basedir}/levels" />
         </copy>
     </target>
     
