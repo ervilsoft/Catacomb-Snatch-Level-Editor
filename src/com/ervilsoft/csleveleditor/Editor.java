@@ -19,10 +19,13 @@ public class Editor extends Canvas implements ActionListener, MouseListener, Mou
     private Image offscreen;
     private Graphics screen;
 
-    private double scale = 2;
+    private double scale;
     
-    private int lvlX = 0;
-    private int lvlY = 0;
+    private int lvlW;
+    private int lvlH;
+    private int lvlX;
+    private int lvlY;
+    
     private Point mapLastPos = new Point();
     private Point clickPos = new Point();
     
@@ -42,6 +45,28 @@ public class Editor extends Canvas implements ActionListener, MouseListener, Mou
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
+    
+    public void setScale(double s) {
+        // don't cross negative threshold. also, setting scale to 0 has bad effects
+        scale = Math.max(0.1, scale + s);
+
+        lvlW = (LevelEditor.LEVEL_WIDTH - 1) * scaleValue(LevelEditor.TILE_WIDTH);
+        lvlH = LevelEditor.LEVEL_HEIGHT * scaleValue(LevelEditor.TILE_HEIGHT);
+    }
+    
+    public int scaleValue(int value) {
+        return (int) (value * scale);
+    }
+
+    public void moveToSpawn() {
+        lvlX = -((lvlW / 2) - (getWidth() / 2));
+
+        if (lvlH > getHeight()) {
+            lvlY = -(lvlH - getHeight()); // move to the bottom
+        } else {
+            lvlY = -(lvlH / 2 - (getHeight() / 2)); // move to the center
+        }
+    }
 
     public void createGraphics() {
         offscreen = createImage(getWidth(), getHeight());
@@ -51,7 +76,6 @@ public class Editor extends Canvas implements ActionListener, MouseListener, Mou
     public void draw(int x, int y) {
         draw(x, y, pencil);
     }
-    
     
     public void draw(int x, int y, Texture.Tile tile) {
         // convert current pos to map pos
@@ -74,7 +98,7 @@ public class Editor extends Canvas implements ActionListener, MouseListener, Mou
         
         preview.repaint();
     }
-
+    
     @Override
     public void paint(Graphics g) {       
         screen.clearRect(0, 0, getWidth(), getHeight());
@@ -235,10 +259,9 @@ public class Editor extends Canvas implements ActionListener, MouseListener, Mou
         if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
 
             // make it a reasonable amount of zoom .1 gives a nice slow transition
-            scale += (0.1 * (e.getWheelRotation() * -1));
-            // don't cross negative threshold. also, setting scale to 0 has bad effects
-            scale = Math.max(0.1, scale);
+            double s = (0.1 * (e.getWheelRotation() * -1));
 
+            setScale(s);
             repaint();
         }
     }

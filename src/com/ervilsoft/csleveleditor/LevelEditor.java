@@ -47,13 +47,14 @@ public class LevelEditor extends JPanel {
         preview = new Preview();
        
         editor = new Editor(preview);
-
+        editor.setScale(2);
+        
         list = new TexturesList();
         listScroll = new JScrollPane(list);
         listScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         
         resized(EDITOR_WIDTH, EDITOR_HEIGHT);
-
+        
         add(listScroll);
         add(buttons);
         add(preview);
@@ -142,6 +143,7 @@ public class LevelEditor extends JPanel {
                 JOptionPane.showMessageDialog(editor, "Error loading level: " + ex, "Error...", JOptionPane.ERROR_MESSAGE);
             }
 
+            editor.moveToSpawn();
             editor.repaint();
             preview.repaint();
         }
